@@ -28,11 +28,29 @@ describe("./musicians endpoint", () => {
     const response = await request(app).get("/musicians");
     const musicians = JSON.parse(response.text);
     expect(Array.isArray(musicians)).toBe(true);
-    musicians.forEach(musician => {
-        expect(musician).toHaveProperty('id');
-        expect(musician).toHaveProperty('name');
-        expect(musician).toHaveProperty('instrument');
+    musicians.forEach((musician) => {
+      expect(musician).toHaveProperty("id");
+      expect(musician).toHaveProperty("name");
+      expect(musician).toHaveProperty("instrument");
     });
-
+  });
 });
+
+describe("./musicians/:id endpoint", () => {
+  test("Testing musicians/:id endpoint returns back data in json format", async () => {
+    const response = await request(app).get("/musicians/:id");
+    expect(response.headers["content-type"]).toEqual(
+      expect.stringContaining("json")
+    );
+  });
+  test("Musicians endpoint returns data with expected structure", async () => {
+    const response = await request(app).get("/musicians");
+    const musicians = JSON.parse(response.text);
+    expect(Array.isArray(musicians)).toBe(true);
+    musicians.forEach((musician) => {
+      expect(musician).toHaveProperty("id");
+      expect(musician).toHaveProperty("name");
+      expect(musician).toHaveProperty("instrument");
+    });
+  });
 });

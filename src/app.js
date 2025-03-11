@@ -12,7 +12,10 @@ app.get('/musicians', async (req, res) => {
     res.json(allMusicians)
 })
 
-
+app.get('/musicians/:id', async (req, res) => {
+    let musician = await Musician.findByPk(req.params.id)
+    res.json(musician)
+})
 
 
 
